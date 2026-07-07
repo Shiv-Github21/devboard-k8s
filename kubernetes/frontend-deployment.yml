@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devboard-fe-deployment
+  namespace: devboard
+  labels:
+    app: devboard-fe
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: devboard-fe
+  template:
+    metadata:
+      labels:
+        app: devboard-fe
+    spec:
+      containers:
+      - name: devboard-fe
+        image: shivu212/frontend:latest
+        ports:
+        - containerPort: 4173
+
