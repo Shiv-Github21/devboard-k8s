@@ -6,7 +6,6 @@ metadata:
 spec:
   selector:
     app: devboard-be
-  type: clusterIP
   ports:
     - protocol: TCP
       port: 8080 #backend service port https//backend:8080
