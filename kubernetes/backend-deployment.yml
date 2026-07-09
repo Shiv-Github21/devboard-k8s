@@ -4,20 +4,31 @@ metadata:
   name: devboard-be-deployment
   namespace: devboard
   labels:
-    app: devboard-be
+    app: devboard-be #inside the deployment metadata, so this label is applied to the deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: devboard-be
+      app: devboard-be #this is inside the deployment spec, so this  deployment can match pods with this label
   template:
     metadata:
       labels:
-        app: devboard-be
+        app: devboard-be #this is inside the pod template, so this label is applied to the pod
     spec:
       containers:
-      - name: devboard-be
-        image: shivu212/backend:latest
-        ports:
-        - containerPort: 8080
-
+        - name: devboard-be
+          image: shivu212/backend:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: POSTGRES_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: devboard-config
+                  key: POSTGRES_URL
+            - name: BACKEND_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: devboard-config
+                  key: BACKEND_PORT
+                

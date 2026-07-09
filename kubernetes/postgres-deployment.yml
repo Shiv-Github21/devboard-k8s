@@ -1,23 +1,48 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: devboard-be-depl
+  name: postgres
   namespace: devboard
   labels:
-    app: devboard-be
+    app: devboard-postgres
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: devboard-be
+      app: devboard-postgres
   template:
     metadata:
       labels:
-        app: devboard-be
+        app: devboard-postgres
     spec:
       containers:
-      - name: devboard-be
-        image: shivu212/backend:latest
+      - name: postgres
+        image: postgres:16-alpine
         ports:
-        - containerPort: 8080
+        - containerPort: 5432
+        env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: devboard-config
+                  key: POSTGRES_USER
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: devboard-secret
+                  key: POSTGRES_PASSWORD
+
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: devboard-secret
+                  key: POSTGRES_DB
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-pvc
+        - name: postgres-init-scripts
+          configMap:
+            name: postgres-init
 
