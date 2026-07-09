@@ -1,15 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: devboard-fe-service
+  name: postgres-service
   namespace: devboard
 spec:
   selector:
-    app: devboard-fe
-  type: NodePort
+    app: devboard-postgres
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 4173
-      nodePort: 30080
+      port: 5432
+      targetPort: 5432
+      
 
