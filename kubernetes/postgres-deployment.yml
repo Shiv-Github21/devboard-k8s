@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: devboard-be-deployment
+  name: devboard-be-depl
   namespace: devboard
   labels:
     app: devboard-be
