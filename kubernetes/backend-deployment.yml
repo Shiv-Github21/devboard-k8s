@@ -27,5 +27,5 @@ spec:
                   name: devboard-config
                   key: BACKEND_PORT
             - name: POSTGRES_URL
-              value: postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/$(POSTGRES_DB)?sslmode=disable     
-                
+              # value: postgres://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/$(POSTGRES_DB)?sslmode=disable     
+                value: "postgres://devboard:$(POSTGRES_PASSWORD)@postgres:5432/devboard?sslmode=disable"
